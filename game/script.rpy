@@ -52,7 +52,7 @@ label start:
 
 label choded:
 
-    c "You can't be chode, I'm Chode."
+    c "You can't be Chode, I'm Chode."
 
     c "*Chode grabs you by your school uniform and takes you to behind the school*"
 
