@@ -7,7 +7,6 @@ define c = Character("Chode")
 
 define pov = Character("[povname]")
 
-
 # The game starts here.
 
 label start:
@@ -48,13 +47,16 @@ label start:
         if povname == "Chode":
             renpy.jump("choded")
         else:
-            renpy.jump("end")
+            if povname == "Nigger":
+                renpy.jump("Ending03")
+            else:
+                renpy.jump("end")
 
 label choded:
 
     c "You can't be Chode, I'm Chode."
 
-    c "*Chode grabs you by your school uniform and takes you to behind the school*"
+    "Chode grabs you by your school uniform and takes you to behind the school"
 
     scene school alleway
 
@@ -63,26 +65,38 @@ label choded:
     show chode happy
     with dissolve
 
-    c "*Chode unzips his pants to reveal his smol chode*"
+    "Chode unzips his pants to reveal his smol chode"
 
     c "Here we go bro"
 
-    # This ends the game.
-
-    return
+    jump Ending02
 
 label end:
 
-    c "Wait you're [povname]? You must be a first year student."
+    c "Wait you're [povname]? You must be a first year bro."
 
     c "I don't hang out with first year incels"
 
     show chode back
 
-    c "Get choded!"
+    c "Get choded bro!"
 
-    c "*walks away*"
+    "As Chode turns around and walks away you feel like you've just been choded for life..."
 
-    # This ends the game.
+label Ending01:
+
+    "Ending 1 - Get choded!"
+
+    return
+
+label Ending02:
+
+    "Ending 2 - Get choded... ew..."
+
+    return
+
+label Ending03:
+
+    "Ending 3 - Battle of Chode"
 
     return
