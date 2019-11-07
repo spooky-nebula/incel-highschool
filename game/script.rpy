@@ -16,8 +16,6 @@ label before_main_menu:
         client_id = "641724281365069884"  # Put your Client ID in here
         client = ipc.DiscordIPC(client_id) # Initialize the Presence client
 
-        start = time.time()
-
         print('Sending data ...')
         client.connect() # Start the handshake loop
 
@@ -38,10 +36,7 @@ label before_main_menu:
 # The game starts here.
 
 label start:
-
     python:
-        start = time.time()
-
         activity = {
             'state': 'Highschool Entrance',
             'details': 'Talking with Chode',
@@ -96,6 +91,18 @@ label start:
                 renpy.jump("end")
 
 label choded:
+    python:
+        activity = {
+            'state': 'Highschool Entrance',
+            'details': 'Talking with Chode',
+            'assets': {
+                'large_image': 'default',
+                'large_text': 'Getting Choded... ew...',
+            }
+        }
+
+        print('Sending activity ...')
+        client.update_activity(activity) # Updates our presence
 
     c "You can't be Chode, I'm Chode."
 
@@ -115,6 +122,18 @@ label choded:
     jump Ending02
 
 label end:
+    python:
+        activity = {
+            'state': 'Highschool Entrance',
+            'details': 'Talking with Chode',
+            'assets': {
+                'large_image': 'default',
+                'large_text': 'Getting Choded',
+            }
+        }
+
+        print('Sending activity ...')
+        client.update_activity(activity) # Updates our presence
 
     c "Wait you're [povname]? You must be a first year bro."
 

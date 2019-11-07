@@ -152,6 +152,13 @@ define config.save_directory = "IncelHighschool-1564604285"
 define config.window_icon = "gui/window_icon.png"
 
 
+##
+##
+##
+
+define config.rollback_enabled = False
+
+
 ## Build configuration #########################################################
 ##
 ## This section controls how Ren'Py turns your project into distribution files.
