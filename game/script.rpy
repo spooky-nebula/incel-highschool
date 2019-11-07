@@ -1,5 +1,9 @@
 ﻿# The script of the game goes in this file.
 
+init python:
+    from discoIPC import ipc
+    import time
+
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
@@ -7,9 +11,48 @@ define c = Character("Chode")
 
 define pov = Character("[povname]")
 
+label before_main_menu:
+    python :
+        client_id = "641724281365069884"  # Put your Client ID in here
+        client = ipc.DiscordIPC(client_id) # Initialize the Presence client
+
+        start = time.time()
+
+        print('Sending data ...')
+        client.connect() # Start the handshake loop
+
+        activity = {
+            'state': 'Main Menu',
+            'details': 'Deciding',
+            'assets': {
+                'large_image': 'default',
+            }
+        }
+
+        print('Sending activity ...')
+        client.update_activity(activity) # Updates our presence
+
+    return
+
+
 # The game starts here.
 
 label start:
+
+    python:
+        start = time.time()
+
+        activity = {
+            'state': 'Highschool Entrance',
+            'details': 'Talking with Chode',
+            'assets': {
+                'large_image': 'default',
+                'large_text': 'Talking with Chode',
+            }
+        }
+
+        print('Sending activity ...')
+        client.update_activity(activity) # Updates our presence
 
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
