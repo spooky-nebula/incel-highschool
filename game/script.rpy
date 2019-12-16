@@ -4,6 +4,12 @@ init python:
     from discoIPC import ipc
     import time
 
+    client_id = "641724281365069884"  # Put your Client ID in here
+    client = ipc.DiscordIPC(client_id) # Initialize the Presence client
+
+    print('Sending data ...')
+    client.connect() # Start the handshake loop
+
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
@@ -12,42 +18,17 @@ define c = Character("Chode")
 define pov = Character("[povname]")
 
 label before_main_menu:
-    python :
-        client_id = "641724281365069884"  # Put your Client ID in here
-        client = ipc.DiscordIPC(client_id) # Initialize the Presence client
-
-        print('Sending data ...')
-        client.connect() # Start the handshake loop
-
-        activity = {
-            'state': 'Main Menu',
-            'details': 'Deciding',
-            'assets': {
-                'large_image': 'default',
-            }
-        }
-
-        print('Sending activity ...')
-        client.update_activity(activity) # Updates our presence
-
+    call discordActivity()
     return
-
 
 # The game starts here.
 
 label start:
-    python:
-        activity = {
-            'state': 'Highschool Entrance',
-            'details': 'Talking with Chode',
-            'assets': {
-                'large_image': 'default',
-                'large_text': 'Talking with Chode',
-            }
-        }
 
-        print('Sending activity ...')
-        client.update_activity(activity) # Updates our presence
+    $ save_name = "Highschool Entrance"
+    $ date = 0
+
+    call discordActivity("talking", "Highschool Entrance", "Chode")
 
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
@@ -91,18 +72,8 @@ label start:
                 renpy.jump("end")
 
 label choded:
-    python:
-        activity = {
-            'state': 'Highschool Entrance',
-            'details': 'Talking with Chode',
-            'assets': {
-                'large_image': 'default',
-                'large_text': 'Getting Choded... ew...',
-            }
-        }
 
-        print('Sending activity ...')
-        client.update_activity(activity) # Updates our presence
+    call discordActivity("talking", "Highschool Back Alley", "Chode")
 
     c "You can't be Chode, I'm Chode."
 
@@ -122,18 +93,6 @@ label choded:
     jump Ending02
 
 label end:
-    python:
-        activity = {
-            'state': 'Highschool Entrance',
-            'details': 'Talking with Chode',
-            'assets': {
-                'large_image': 'default',
-                'large_text': 'Getting Choded',
-            }
-        }
-
-        print('Sending activity ...')
-        client.update_activity(activity) # Updates our presence
 
     c "Wait you're [povname]? You must be a first year bro."
 
@@ -144,6 +103,20 @@ label end:
     c "Get choded bro!"
 
     "As Chode turns around and walks away you feel like you've just been choded for life..."
+
+    jump Ending02
+
+label sleep:
+
+    menu:
+        "You slowly start closing your eyes."
+
+        "Sleep":
+            python:
+                date += 1
+
+
+    return
 
 label Ending01:
 
@@ -160,5 +133,30 @@ label Ending02:
 label Ending03:
 
     "Ending 3 - Battle of Chode"
+
+    return
+
+label discordActivity(activity="main_menu",place="none",character="none",large_image="default"):
+
+    python:
+        print('Sending activity ...')
+        if activity == "main_menu":
+            client.update_activity({
+                'state': 'Main Menu',
+                'details': 'Deciding',
+                'assets': {
+                    'large_image': 'default',
+                }
+            }) # Updates our presence
+
+        if activity == "talking":
+            client.update_activity({
+                'state': place,
+                'details': 'Talking with ' + character,
+                'assets': {
+                    'large_image': large_image,
+                    'large_text': 'Talking with ' + character,
+                }
+            }) # Updates our presence
 
     return
